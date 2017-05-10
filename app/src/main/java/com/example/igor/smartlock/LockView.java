@@ -1,5 +1,4 @@
-package com.example.igor.smartlock.Locker;
-
+package com.example.igor.smartlock;
 /**
  * Created by Igor on 29.04.2017.
  */
@@ -15,14 +14,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
-import com.example.igor.smartlock.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +115,7 @@ public class LockView extends ViewGroup {
     }
     @Override
     protected void onDraw(Canvas canvas) {
-       // if(CanDrawBoolean)
+        // if(CanDrawBoolean)
         canvas.drawBitmap(bitmap, 0, 0, null);
     }
     @Override
@@ -125,8 +123,10 @@ public class LockView extends ViewGroup {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
+                Log.e("CanDrawOnTouch",CanDrawBoolean+"");
                 if(CanDrawBoolean)
                 {
+                    Log.e("OnTOuch","touching");
                     NodeView nodeAt = getNodeAt(event.getX(), event.getY());
 
                     if (nodeAt == null && currentNode == null) {
@@ -145,7 +145,7 @@ public class LockView extends ViewGroup {
                             canvas.drawLine(currentNode.getCenterX(), currentNode.getCenterY(), event.getX(), event.getY(), paint);
                         } else {
 
-                            Animation animation= AnimationUtils.loadAnimation(getContext(),R.anim.zoom_point);
+                            Animation animation= AnimationUtils.loadAnimation(getContext(), R.anim.zoom_point);
                             nodeAt.startAnimation(animation);
 
                             canvas.drawLine(currentNode.getCenterX(), currentNode.getCenterY(), nodeAt.getCenterX(), nodeAt.getCenterY(), paint);
@@ -165,50 +165,50 @@ public class LockView extends ViewGroup {
                 return true;
 
             case MotionEvent.ACTION_UP:
-               // Log.e("Password:",pwdSb.toString()+"");
+                // Log.e("Password:",pwdSb.toString()+"");
 
                 if (pwdSb.length() < 4) {
-                        pwdSb.setLength(0);
-                        lineList.clear();
-                        clearScreenAndDrawList();
-                        currentNode = null;
-
-                        for (int n = 0; n < getChildCount(); n++) {
-                            NodeView node = (NodeView) getChildAt(n);
-                            node.setHighLighted(false);
-                        }
-
-                        return super.onTouchEvent(event);
-                    }
-
-                    if (callBack != null) {
-                        callBack.onFinish(pwdSb.toString());
-                        pwdSb.setLength(0);
-
-                    }
-
+                    pwdSb.setLength(0);
+                    lineList.clear();
+                    clearScreenAndDrawList();
                     currentNode = null;
-
 
                     for (int n = 0; n < getChildCount(); n++) {
                         NodeView node = (NodeView) getChildAt(n);
-                        if(node.isHighLighted())
-                        {
-                            node.SetNodeHighlighted();
-
-                        }
+                        node.setHighLighted(false);
                     }
 
+                    return super.onTouchEvent(event);
+                }
+
+
+                currentNode = null;
+
+
+                for (int n = 0; n < getChildCount(); n++) {
+                    NodeView node = (NodeView) getChildAt(n);
+                    if(node.isHighLighted())
+                    {
+                        node.SetNodeHighlighted();
+
+                    }
+                }
+
                 CanDrawBoolean=false;
-                    lineColor = Color.argb(255, 39, 191, 176);
-                    paint.setColor(lineColor);
+                lineColor = Color.argb(255, 39, 191, 176);
+                paint.setColor(lineColor);
 
-                    clearScreenAndDrawList();
-
-
+                clearScreenAndDrawList();
 
 
-                    invalidate();
+                if (callBack != null) {
+                    callBack.onFinish(pwdSb.toString());
+                    pwdSb.setLength(0);
+
+                }
+
+
+                invalidate();
 
                 return true;
         }
@@ -216,6 +216,7 @@ public class LockView extends ViewGroup {
     }
     public void Repeate()
     {
+        CanDrawBoolean=true;
         pwdSb.setLength(0);
         lineList.clear();
 
@@ -232,10 +233,10 @@ public class LockView extends ViewGroup {
 
         lineColor = Color.argb(255, 61, 255, 236);
         paint.setColor(lineColor);
+
         clearScreenAndDrawList();
         invalidate();
 
-        CanDrawBoolean=true;
 
     }
     private boolean isOnLine(NodeView A,float endx,float endy,NodeView Find)

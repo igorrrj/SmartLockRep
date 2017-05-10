@@ -18,7 +18,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <com.example.igor.lookscreen.LockView
+    <com.example.igor.smartlock.LockView
         android:id = "@+id/lock_view"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
@@ -29,9 +29,9 @@
         app:lineColor = "#FF3DFFEC"
         app:lineWidth = "4dp" />
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/LinearButtons"
         android:gravity="end"
-        android:visibility="gone"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:orientation="horizontal"

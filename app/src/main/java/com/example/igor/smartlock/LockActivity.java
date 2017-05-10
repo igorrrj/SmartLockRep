@@ -1,15 +1,13 @@
-package com.example.igor.smartlock.Locker;
+package com.example.igor.smartlock;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.igor.smartlock.MainActivity;
-import com.example.igor.smartlock.R;
 
 /**
  * Created by Igor on 06.05.2017.
@@ -29,13 +27,15 @@ public class LockActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        if (getIntent().getExtras() != null && getIntent().getExtras().getBoolean("EXIT", false)) {
+            finish();
+        }
         header=(TextView)findViewById(R.id.headerTextView);
 
         lockView=(LockView)findViewById(R.id.lock_view);
 
-        ButtonSave=(Button)findViewById(R.id.buttonSave);
-        ButtonAgain=(Button)findViewById(R.id.buttonAgain);
 
 
         lockView.setCallBack(new LockView.CallBack() {
@@ -43,8 +43,7 @@ public class LockActivity extends AppCompatActivity {
             @Override
             public void onFinish(final String password) {
 
-            /*
-                ButtonAgain.setOnClickListener(new View.OnClickListener() {
+              /*  ButtonAgain.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         lockView.Repeate();
@@ -62,19 +61,20 @@ public class LockActivity extends AppCompatActivity {
 
                     }
                 });*/
-                if(saved_password.length()>3)
+                if(password.length()>3)
                 {
                     if(saved_password.equals(password))
                     {
-                        startActivity(new Intent(LockActivity.this, MainActivity.class));
+                    startActivity(new Intent(LockActivity.this,MainActivity.class));
 
                     }
 
                     else
                     {
-                        Toast.makeText(getApplicationContext(),"wrong password",Toast.LENGTH_SHORT).show();
                         lockView.Repeate();
-                        saved_password="";
+                        //saved_password="";
+                        Toast.makeText(getApplicationContext(),"wrong password",Toast.LENGTH_SHORT).show();
+
 
                     }
 
