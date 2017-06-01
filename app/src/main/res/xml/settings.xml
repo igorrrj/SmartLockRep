@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout="@layout/activity_main">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="auto_bluetooth_pref"
+        android:summary="Auto turn on bluetooth"
+        android:title="Bluetooth" />
+    <Preference
+        android:title="Change Password"
+        android:key="password_pref"
+        android:layout="@layout/password_pref" />
+
+</PreferenceScreen>

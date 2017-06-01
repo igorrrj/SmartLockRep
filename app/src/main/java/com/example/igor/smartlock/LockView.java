@@ -14,7 +14,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,7 +51,6 @@ public class LockView extends ViewGroup {
         initFromAttributes(attrs, defStyleAttr);
         CanDrawBoolean=true;
     }
-
 
 
     private void initFromAttributes(AttributeSet attrs, int defStyleAttr) {
@@ -123,10 +121,8 @@ public class LockView extends ViewGroup {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                Log.e("CanDrawOnTouch",CanDrawBoolean+"");
                 if(CanDrawBoolean)
                 {
-                    Log.e("OnTOuch","touching");
                     NodeView nodeAt = getNodeAt(event.getX(), event.getY());
 
                     if (nodeAt == null && currentNode == null) {
@@ -149,12 +145,83 @@ public class LockView extends ViewGroup {
                             nodeAt.startAnimation(animation);
 
                             canvas.drawLine(currentNode.getCenterX(), currentNode.getCenterY(), nodeAt.getCenterX(), nodeAt.getCenterY(), paint);
+
+                            //Log.e("CurNode",currentNode.getNum()+"");
+                            //Log.e("NodeAT",nodeAt.getNum()+"");
+
+                            if(currentNode.getNum()==1 && nodeAt.getNum()==3)
+                            {
+                                NodeView n=(NodeView) getChildAt(1);
+                                n.startAnimation(animation);
+                                n.setHighLighted(true);
+                                Pair<NodeView, NodeView> p = new Pair<NodeView, NodeView>(currentNode, n);
+                                lineList.add(p);
+                                pwdSb.append(n.getNum());
+                                currentNode=n;
+                            }
+
+                            if(currentNode.getNum()==4 && nodeAt.getNum()==6)
+                            {
+                                NodeView n=(NodeView) getChildAt(4);
+                                n.startAnimation(animation);
+                                n.setHighLighted(true);
+                                Pair<NodeView, NodeView> p = new Pair<NodeView, NodeView>(currentNode, n);
+                                lineList.add(p);
+                                pwdSb.append(n.getNum());
+                                currentNode=n;
+                            }
+                            if(currentNode.getNum()==7 && nodeAt.getNum()==9)
+                            {
+                                NodeView n=(NodeView) getChildAt(7);
+
+                                n.startAnimation(animation);
+                                n.setHighLighted(true);
+                                Pair<NodeView, NodeView> p = new Pair<NodeView, NodeView>(currentNode, n);
+                                lineList.add(p);
+                                pwdSb.append(n.getNum());
+                                currentNode=n;
+                            }
+                            if(currentNode.getNum()==1 && nodeAt.getNum()==7)
+                            {
+                                NodeView n=(NodeView) getChildAt(3);
+
+                                n.startAnimation(animation);
+                                n.setHighLighted(true);
+                                Pair<NodeView, NodeView> p = new Pair<NodeView, NodeView>(currentNode, n);
+                                lineList.add(p);
+                                pwdSb.append(n.getNum());
+                                currentNode=n;
+                            }
+                            if(currentNode.getNum()==2 && nodeAt.getNum()==8)
+                            {
+                                NodeView n=(NodeView) getChildAt(4);
+
+                                n.startAnimation(animation);
+                                n.setHighLighted(true);
+                                Pair<NodeView, NodeView> p = new Pair<NodeView, NodeView>(currentNode, n);
+                                lineList.add(p);
+                                pwdSb.append(n.getNum());
+                                currentNode=n;
+                            }
+                            if(currentNode.getNum()==3 && nodeAt.getNum()==9)
+                            {
+                                NodeView n=(NodeView) getChildAt(5);
+
+                                n.startAnimation(animation);
+                                n.setHighLighted(true);
+                                Pair<NodeView, NodeView> p = new Pair<NodeView, NodeView>(currentNode, n);
+                                lineList.add(p);
+                                pwdSb.append(n.getNum());
+                                currentNode=n;
+                            }
+
                             nodeAt.setHighLighted(true);
                             Pair<NodeView, NodeView> pair = new Pair<NodeView, NodeView>(currentNode, nodeAt);
                             lineList.add(pair);
-
                             currentNode = nodeAt;
+
                             pwdSb.append(currentNode.getNum());
+
                         }
                         invalidate();
                     }

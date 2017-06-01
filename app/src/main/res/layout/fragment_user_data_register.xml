@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:background="@color/colorLightGrey"
+    android:layout_height="match_parent">
+
+                <EditText android:id="@+id/input_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/round_corners"
+                    android:hint="UserName"/>
+
+    <TextView
+        android:paddingTop="8dp"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorGrey"
+        android:layout_height="wrap_content"
+        android:text="Enter your full Name "/>
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:background="@drawable/round_corners"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <EditText android:id="@+id/input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@android:color/transparent"
+        android:hint="Password"/>
+
+    <View
+        android:background="@color/colorLightGrey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <EditText android:id="@+id/input_password_again"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:hint="Repeat Password"/>
+
+</LinearLayout>
+
+    <TextView
+        android:paddingTop="8dp"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorGrey"
+        android:layout_height="wrap_content"
+        android:text="Password must contains of 4-12 symbols"/>
+
+
+</LinearLayout>

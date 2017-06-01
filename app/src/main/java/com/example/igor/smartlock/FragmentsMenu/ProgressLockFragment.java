@@ -5,11 +5,9 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,12 +60,11 @@ public class ProgressLockFragment extends Fragment {
     Timer timer;
     Handler handler;
     int progress=0;
-    Boolean ans = true,clickableBool=false;
+    Boolean ans = true;
             void startTimer()
             {
                 timer=new Timer();
                 handler=new Handler();
-                // final AsyncProgress async= new AsyncProgress(ans);
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -80,7 +77,7 @@ public class ProgressLockFragment extends Fragment {
 
                                 lockBar.setRotation(progress);
 
-                                Log.e("Rotation",lockBar.getRotation()+"");
+                               // Log.e("Rotation",lockBar.getRotation()+"");
 
                                 if(progress==180 && ans)
                                 {
@@ -111,29 +108,4 @@ public class ProgressLockFragment extends Fragment {
         },0,5);
     }
 
-     class AsyncProgress extends AsyncTask<Void,Void,Void>{
-
-        boolean ans;
-        public AsyncProgress(boolean b)
-        {
-            ans=b;
-        }
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-            Log.e("ONProgressUpdate",values+"");
-            //lockProgressD.setLevel(progress*40);
-            if(ans)
-            lockBar.setProgressDrawable(getResources().getDrawable(R.drawable.circular_green));
-            else lockBar.setProgressDrawable(getResources().getDrawable(R.drawable.circular_red));
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Log.e("doInBackground","");
-
-            return null;
-        }
-    }
 }
